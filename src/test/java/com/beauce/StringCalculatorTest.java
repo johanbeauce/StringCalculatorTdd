@@ -45,7 +45,7 @@ class StringCalculatorTest {
 
     @ParameterizedTest(name = "\"{0}\" should return {1}")
     @MethodSource("getMultipleNumberSeparatedByComma")
-    void when_give_list_number_separated_by_comma_give_sum_of_these_numbers(String numbers, int sum) {
+    void when_give_list_number_separated_by_comma_should_sum_these_numbers(String numbers, int sum) {
         assertThat(stringCalculator.add(numbers)).isEqualTo(sum);
     }
 
@@ -56,4 +56,17 @@ class StringCalculatorTest {
                 Arguments.of("1,2,3,4,5,6,7,8,9", 45)
         );
     }
+
+    @ParameterizedTest(name = "\"{0}\" should return {1}")
+    @MethodSource("getMultipleNumberSeparatedByCommaOrLineBreak")
+    void when_give_list_number_seperated_by_comma_or_semi_column_should_sum_these_numbers(String numbers, int sum) {
+        assertThat(stringCalculator.add(numbers)).isEqualTo(sum);
+    }
+
+    public static Stream<Arguments> getMultipleNumberSeparatedByCommaOrLineBreak() {
+        return Stream.of(
+                Arguments.of("1\n2,3", 6),
+                Arguments.of("2\n5,6", 13));
+    }
+
 }
