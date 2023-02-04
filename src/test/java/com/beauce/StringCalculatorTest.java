@@ -52,7 +52,8 @@ class StringCalculatorTest {
     public static Stream<Arguments> getMultipleNumberSeparatedByComma() {
         return Stream.of(
                 Arguments.of("2,3", 5),
-                Arguments.of("4,3", 7)
+                Arguments.of("4,3", 7),
+                Arguments.of("1,2,3,4,5,6,7,8,9", 45)
         );
     }
 }
