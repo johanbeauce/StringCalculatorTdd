@@ -12,6 +12,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DisplayName("Given StringCalculator class")
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -71,5 +72,12 @@ class StringCalculatorTest {
     @Test
     void when_give_list_number_with_custom_separator_should_sum_these_numbers() {
         assertThat(stringCalculator.add("//;\n1;3;5")).isEqualTo(9);
+    }
+
+    @Test
+    void when_give_negative_numbers_should_return_error_with_this_numbers() {
+        assertThatThrownBy(() -> stringCalculator.add("1,-2,-3"))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessage("error: negatives not allowed: -2,-3");
     }
 }

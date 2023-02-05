@@ -24,9 +24,18 @@ public class StringNumbers {
             return ZERO;
         }
 
-        return getNumbers(getNumbersAsString(), getSeparators())
-                .mapToInt(Integer::parseInt)
-                .sum();
+        var numbers = getNumbers(getNumbersAsString(), getSeparators()).toList();
+        var negativeNumbers = numbers.stream()
+                .filter(number -> number.startsWith("-"))
+                .toList();
+        if (negativeNumbers.isEmpty()) {
+            return numbers.stream()
+                    .mapToInt(Integer::parseInt)
+                    .sum();
+        } else {
+            throw new RuntimeException("error: negatives not allowed: " + String.join(",", negativeNumbers));
+        }
+
     }
 
     private boolean startsWithSpecialSeparator() {
