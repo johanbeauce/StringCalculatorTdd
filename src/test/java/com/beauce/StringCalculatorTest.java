@@ -12,7 +12,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.InstanceOfAssertFactories.ATOMIC_REFERENCE_FIELD_UPDATER;
 
 @DisplayName("Given StringCalculator class")
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -69,4 +68,8 @@ class StringCalculatorTest {
                 Arguments.of("2\n5,6", 13));
     }
 
+    @Test
+    void when_give_list_number_with_custom_separator_should_sum_these_numbers() {
+        assertThat(stringCalculator.add("//;\n1;3;5")).isEqualTo(9);
+    }
 }
