@@ -25,17 +25,23 @@ public class StringNumbers {
         }
 
         var numbers = getNumbers(getNumbersAsString(), getSeparators()).toList();
-        var negativeNumbers = numbers.stream()
+        assertNoNegativeNumbers(numbers);
+        return numbers.stream()
+                .mapToInt(Integer::parseInt)
+                .sum();
+    }
+
+    private void assertNoNegativeNumbers(List<String> numbers) {
+        var negativeNumbers = getNegativeNumbers(numbers);
+        if (!negativeNumbers.isEmpty()) {
+            throw new NegativesNotAllowedException(negativeNumbers);
+        }
+    }
+
+    private List<String> getNegativeNumbers(List<String> numbers) {
+        return numbers.stream()
                 .filter(number -> number.startsWith("-"))
                 .toList();
-        if (negativeNumbers.isEmpty()) {
-            return numbers.stream()
-                    .mapToInt(Integer::parseInt)
-                    .sum();
-        } else {
-            throw new RuntimeException("error: negatives not allowed: " + String.join(",", negativeNumbers));
-        }
-
     }
 
     private boolean startsWithSpecialSeparator() {
