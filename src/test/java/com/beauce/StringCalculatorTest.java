@@ -81,8 +81,17 @@ class StringCalculatorTest {
                 .hasMessage("error: negatives not allowed: -2,-3");
     }
 
-    @Test
-    void when_number_are_greater_than_1000_should_be_ignored() {
-        assertThat(stringCalculator.add("1001,2")).isEqualTo(2);
+    @ParameterizedTest(name = "\"{0}\" should return {1}")
+    @MethodSource("getNumbersMoreThanOneThousand")
+    void when_number_are_greater_than_1000_should_be_ignored(String numbers, int sum) {
+        assertThat(stringCalculator.add(numbers)).isEqualTo(sum);
+    }
+
+    public static Stream<Arguments> getNumbersMoreThanOneThousand() {
+        return Stream.of(
+                Arguments.of("1001,2", 2),
+                Arguments.of("1,1001,3", 4),
+                Arguments.of("5,1002", 5)
+        );
     }
 }
