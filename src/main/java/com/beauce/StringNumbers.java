@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.IntPredicate;
 import java.util.stream.Stream;
 
 public class StringNumbers {
@@ -12,6 +13,7 @@ public class StringNumbers {
     private static final String COMMA = ",";
     private static final String LINE_BREAK = "\n";
     private static final List<String> DEFAULT_SEPARATORS = List.of(COMMA, LINE_BREAK);
+    private static final IntPredicate NOT_GREATER_THAN_1000 = number -> number <= 1000;
 
     private final String inputString;
 
@@ -28,7 +30,7 @@ public class StringNumbers {
         assertNoNegativeNumbers(numbers);
         return numbers.stream()
                 .mapToInt(Integer::parseInt)
-                .filter(number -> number <= 1000)
+                .filter(NOT_GREATER_THAN_1000)
                 .sum();
     }
 
