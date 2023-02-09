@@ -94,4 +94,10 @@ class StringCalculatorTest {
                 Arguments.of("5,1002", 5)
         );
     }
+
+    @Test
+    void when_give_arbitrary_length_separators_should_calculate_the_sum() {
+        assertThat(stringCalculator.add("//[***]\n1***2***3")).isEqualTo(6);
+    }
 }
+

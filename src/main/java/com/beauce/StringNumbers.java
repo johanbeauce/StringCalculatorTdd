@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.IntPredicate;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class StringNumbers {
@@ -52,7 +53,16 @@ public class StringNumbers {
     }
 
     private String getSpecialSeparator() {
-        return inputString.substring(2, inputString.indexOf(LINE_BREAK));
+        var specialSeparator = inputString.substring(2, inputString.indexOf(LINE_BREAK));
+        if (specialSeparator.startsWith("[") && specialSeparator.endsWith("]")) {
+            return escapePattern(specialSeparator.substring(1, specialSeparator.length() - 1));
+        } else {
+            return escapePattern(specialSeparator);
+        }
+    }
+
+    private String escapePattern(String specialSeparator) {
+        return Pattern.quote(specialSeparator);
     }
 
     private String getNumbersAsString() {
