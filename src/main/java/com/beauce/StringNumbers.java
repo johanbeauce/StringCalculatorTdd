@@ -28,6 +28,7 @@ public class StringNumbers {
         assertNoNegativeNumbers(numbers);
         return numbers.stream()
                 .mapToInt(Integer::parseInt)
+                .filter(number -> number <= 1000)
                 .sum();
     }
 

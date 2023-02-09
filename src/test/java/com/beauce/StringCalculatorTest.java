@@ -80,4 +80,9 @@ class StringCalculatorTest {
                 .isInstanceOf(RuntimeException.class)
                 .hasMessage("error: negatives not allowed: -2,-3");
     }
+
+    @Test
+    void when_number_are_greater_than_1000_should_be_ignored() {
+        assertThat(stringCalculator.add("1001,2")).isEqualTo(2);
+    }
 }
